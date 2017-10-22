@@ -54,7 +54,7 @@ $CustomDirectories = @{
     $env:AppData    = '[AppData]'
     
     # Replicates, to make the prompt look nicer (Need to do this automatic in the future)
-    #("$($ProtectedObjects.PSProfileDirectory)")         = '[PS-Profile]'
+    ("$($ProtectedObjects.PSProfileDirectory)") = '[PS-Profile]'
     ("$($ProtectedObjects.PSConfigDirectory)")  = '[PS-Config]'
     ("$($ProtectedObjects.PSModuleDirectory)")  = '[PS-Modules]'
     ("$($ProtectedObjects.PSDataDirectory)")    = '[PS-Data]'
