@@ -60,6 +60,3 @@ Function Get-Weather {
     }
 
 }
-
-# Export module
-Export-ModuleMember -Function Get-*

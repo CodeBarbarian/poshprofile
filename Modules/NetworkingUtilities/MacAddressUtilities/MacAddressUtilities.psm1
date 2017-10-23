@@ -1,47 +1,16 @@
 <#
 .SYNOPSIS
-    A collection of scripts designed to aid in the process of dealing with networking issues and/or troubleshoting
-.DESCRIPTION
-    See synopsis.
-    This script also has some functions for retrieving information using different functions
-.NOTES
-    This script is written by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian       0.0.1       05/09/2017                Initial Relase of script
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-#>
-
-################################# Script Config ##################################
-# Use the default web proxy credentials if the client uses a proxy
-[System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
-
-
-##################################################################################
-
-<#
-.SYNOPSIS
     Update Mac Address Vendor list with respective mac addresses, first three octets that is.
 .DESCRIPTION    
     Updates the Vendor list with respective mac addresses from wireshark's gitweb.
 .NOTES
     This function is written by @codebarbarian - https://github.com/codebarbarian
     ========================================================================================================
-    #                                               CHANGELOG
+    #                                       CHANGELOG
     ========================================================================================================
     #    Author         Version         Date                       Description    
     ========================================================================================================      
-    # CodeBarbarian     0.0.1         05/09/2017                First initial releae of function
+    # CodeBarbarian       0.0.1         05/09/2017                First initial release of function
     #
     #
     #
@@ -74,7 +43,7 @@ function Update-MacAddressVendor {
     ========================================================================================================
     #    Author         Version         Date                       Description    
     ========================================================================================================      
-    # CodeBarbarian     0.0.1         05/09/2017                
+    # CodeBarbarian     0.0.1         05/09/2017                First Initial release of function
     #
     #
     #
@@ -129,6 +98,3 @@ function Get-MacAddressVendor {
         }
     }
 }
-
-Export-ModuleMember -Function Get-*
-Export-ModuleMember -Function Update-*

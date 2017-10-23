@@ -168,12 +168,3 @@ Function Get-PowerShellName {
         [switch] $operatingsystem
     )
 }
-
-
-
-
-
-# Export all functions in this file
-Export-ModuleMember -Function Get-*
-Export-ModuleMember -Function Set-*
-Export-ModuleMember -Function Optimize-*

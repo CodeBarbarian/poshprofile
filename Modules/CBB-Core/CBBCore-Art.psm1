@@ -56,6 +56,3 @@ Function Get-MainHeader {
     Get-CodeBarbarianHeader 
     "============================================================================================================"
 }
-
-# Export everything
-Export-Modulemember -function Get-*
