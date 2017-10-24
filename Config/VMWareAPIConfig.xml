@@ -1,0 +1,7 @@
+<Config>
+    <VSphere>
+        <ServerProtocol>https</ServerProtocol>
+        <ServerIPAddress>0.0.0.0</ServerIPAddress>
+        <BaseAPIUri>rest</BaseAPIUri>
+    </VSphere>
+</Config>
