@@ -1,4 +1,4 @@
-[System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
+
 
 Function Get-DefaultConfigPath {
     [cmdletbinding()]

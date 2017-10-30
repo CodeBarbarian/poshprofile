@@ -1,5 +1,6 @@
 # Powershell Profile
 ![Version](https://img.shields.io/badge/Version-1.0-brightgreen.svg)
+![Release](https://img.shields.io/badge/Stable-brightblue.svg)
 ![Dependencies](https://img.shields.io/badge/Dependencies-up%20to%20date-brightgreen.svg)
 ![DevelopmentStatus](https://img.shields.io/badge/Development%20Status-early%20alpha-brightred.svg)
 
