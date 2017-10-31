@@ -168,3 +168,47 @@ Function Get-PowerShellName {
         [switch] $operatingsystem
     )
 }
+
+<#
+.SYNOPSIS
+    Simple implementation of touch command from *nix
+.DESCRIPTION
+    See synopsis.
+    This script could be accomplished by doing "set-alias Touch New-Item"
+.EXAMPLE
+    touch c:\temp\test.txt
+.PARAMETER Path
+    The entire FQPN
+.LINK
+.NOTES
+    This function is written by @codebarbarian - https://github.com/codebarbarian
+    ========================================================================================================
+    #                                               CHANGELOG
+    ========================================================================================================
+    #    Author         Version         Date                       Description    
+    ========================================================================================================      
+    # CodeBarbarian      1.0            31.10.2017              First Initial relase of touch
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+#>
+Function Touch {
+    [cmdletbinding(SupportsShouldProcess=$true)]
+    [OutputType([void])]
+    param (
+        [parameter(mandatory=$true)]
+        $Path
+    )
+
+    if ($PSCmdlet.ShouldProcess("Creating file $($Path)")) {
+        Write-Verbose -Message "Creating file $($Path)"
+        New-Item -Path $Path -ItemType File -Force
+        Write-Verbose -Message "File created."
+    }
+    
+    return 0
+}
