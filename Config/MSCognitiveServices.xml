@@ -1,0 +1,7 @@
+<Config>
+    <MSCognitiveServices>
+        <ServerProtocol>https</ServerProtocol> 
+        <APIEndPoint>westcentralus.api.cognitive.microsoft.com/vision/v1.0</APIEndPoint>
+        <CognitiveVisionAPIKey></CognitiveVisionAPIKey>
+    </MSCognitiveServices>
+</Config>

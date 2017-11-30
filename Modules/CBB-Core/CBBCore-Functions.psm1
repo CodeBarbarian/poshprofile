@@ -23,10 +23,13 @@
     #
     #
     #
+
+    Function needs to be re-written to better fit the current environment
 #>
 function Optimize-Session {
     [cmdletbinding()] 
     [Alias("PS-Clean")]
+    [OutputType([void])]
     param()
 
     Get-Variable | Where-Object {$_.Name -notmatch '(CustomDirectories|ProtectedObjects)'} | ForEach-Object {
@@ -105,6 +108,7 @@ function Get-CustomDirectory {
 #>
 Function Get-Bootstrapper {
     [cmdletbinding()]
+    [OutputType([void])]
     param()
 
     # Clear Host
@@ -209,6 +213,55 @@ Function Touch {
         New-Item -Path $Path -ItemType File -Force
         Write-Verbose -Message "File created."
     }
-    
     return 0
+}
+
+Function Get-PSProfileChallenge {
+    [cmdletbinding()]
+    [OutputType([boolean])]
+    param ()
+
+    if (Get-Variable -Name PSProfileChallenge -Scope Global -ErrorAction SilentlyContinue) {
+        return $True
+    } else {
+        $False
+    }
+}
+
+Function New-Window {
+    [cmdletbinding()]
+    [OutputType([void])]
+    param (
+        [parameter(mandatory=$true)]
+        [scriptblock] $Include 
+    )
+
+    Invoke-Expression 'cmd /c start powershell.exe -Command $($Include)'
+}
+
+
+# TODO - - Finish this one.
+Function Inspect-Self {
+    [cmdletbinding()]
+    [OutputType([void])]
+    param (
+
+    )
+
+    "========================================================================"
+    "                          Generating report..."
+    "========================================================================"
+    Write-Host ("__ERRORS: $($Global:Error.Count)") -ForegroundColor RED
+    $Global:Error
+    Write-Host ("__WARNING: $($Global:Warning.Count)") -ForegroundColor YELLOW
+    $Global:Warning
+    Write-Host ("__DEBUG: $($Global:Debug.Count)") -ForegroundColor BLUE
+    $Global:Debug 
+    Write-Host ("__VERBOSE: $($Global:Verbose.Count)") -ForegroundColor CYAN
+    "========================================================================"
+    "                           END OF REPORT"
+    "========================================================================"
+
+
+
 }

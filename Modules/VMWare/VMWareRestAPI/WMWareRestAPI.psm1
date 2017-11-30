@@ -1,5 +1,3 @@
-
-
 Function Get-DefaultConfigPath {
     [cmdletbinding()]
     [OutputType([string])]
@@ -33,7 +31,7 @@ Function Get-APIURL {
         $Extras
     )
 
-    $BaseAPIUri = ("$($ServerProtocol)://$($ServerIP)/rest/$($APIType)$($Extras)")
+    $BaseAPIUri = ("$($Global:ServerProtocol)://$($Global:ServerIP)/$($Global:BaseAPI)/$($APIType)$($Extras)")
 
     return $BaseAPIUri
 }
@@ -45,6 +43,7 @@ Function Get-Credentials {
         [parameter(mandatory=$true)] 
         $CredentialObject
     )
+
     
     $Authorization = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($CredentialObject.UserName+':'+$CredentialObject.GetNetworkCredential().Password))
 
@@ -55,12 +54,20 @@ Function Get-Authentication {
     [cmdletbinding()]
     param(
     )
-
-    $CredentialObject = Get-Credential
+    
+    # Let us first try with predefined credentials
+    if ([string]::IsNullOrWhiteSpace($ConfigFile.Config.Vsphere.Username) -or [string]::IsNullOrWhiteSpace($ConfigFile.Config.Vsphere.Password)) {
+        $CredentialObject = Get-Credential
+    } else {
+        $Username = $Global:Username
+        $Password = ConvertTo-SecureString -AsPlainText $Global:Password -Force
+        $CredentialObject = New-Object -TypeName "System.Management.Automation.PSCredential" -ArgumentList $Username,$Password
+    }
+        
     $AuthorizationObject = Get-Credentials -CredentialObject $CredentialObject
     $SessionToken        = Get-SessionToken -Authorization $AuthorizationObject
 
-    Add-Headers -Key "vmware-api-session-id" -Value $SessionToken    
+    Add-Headers -Key "vmware-api-session-id" -Value $SessionToken
 }
 
 Function Get-SessionToken {
@@ -126,12 +133,55 @@ Function Query-API {
     return $Response
 }
 
-$ServerProtocol = $ConfigFile.Config.Vsphere.ServerProtocol
-$ServerIP       = $ConfigFile.Config.Vsphere.ServerIPAddress
-$BaseAPI        = $ConfigFile.Config.Vsphere.BaseAPIUri
-$Headers        = @{}
+Function Get-Datastores {
+    [cmdletbinding()] param()
+    $APIURI = Get-APIURL -APIType vcenter -Extras "/datastore"
+    $Response = Query-API -Uri $APIURI -Method Get
 
-# Check if session id is set
-if (Check-SessionId) {
-    Get-Authentication
+    # First Convert From Json from the Response Content 
+    $Response = $Response.Content | ConvertFrom-Json
+
+    # Return Object
+    $ReturnObject = @()
+
+    # Now all the values of the datastores are stored in the response object
+    foreach($Object in $Response.value) {
+        $DatastoreID       = $Object.datastore
+        $DatastoreName     = $Object.name
+        $DatastoreType     = $Object.type
+        $DatastoreFree     = [math]::Ceiling($Object.free_space/1GB)
+        $DatastoreCapacity = [math]::Ceiling($Object.capacity/1GB)
+    
+        $Temp = New-Object PSObject -Property @{
+            DatastoreID       = $DatastoreID
+            DatastoreName     = $DatastoreName
+            DatastoreType     = $DatastoreType
+            DatastoreFree     = $DatastoreFree
+            DatastoreCapacity = $DatastoreCapacity
+        }
+
+        $ReturnObject += $Temp
+    }
+
+    return $ReturnObject
 }
+
+Function Run-Session {
+    [cmdletbinding()] 
+    param (
+
+    )
+    $Global:ServerProtocol     = $ConfigFile.Config.Vsphere.ServerProtocol
+    $Global:ServerIP           = $ConfigFile.Config.Vsphere.ServerIPAddress
+    $Global:BaseAPI            = $ConfigFile.Config.Vsphere.BaseAPIUri
+    $Global:Username    = $ConfigFile.Config.Vsphere.Username
+    $Global:Password    = $ConfigFile.Config.Vsphere.Password
+    $Headers            = @{}
+
+    # Check if session id is set
+    if (Check-SessionId) {
+        Get-Authentication
+    }
+
+}
+

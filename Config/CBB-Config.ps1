@@ -47,7 +47,7 @@ $ProtectedObjects = New-Object PSObject -Property @{
     ColorPromptDates            = "RED"
     ColorPromptNickname         = "WHITE"
     ColorPromptCustomDirectory  = "GREEN"
-    ColorPromptArrow            = "Yellow"
+    ColorPromptArrow            = "Yellow"    
 }
 
 $CustomDirectories = @{
@@ -69,21 +69,41 @@ $CustomDirectories = @{
     ("$(Join-Path $ENV:USERPROFILE Documents)\git")     = '[Git Repository]'
 
 }
+# Profile Challenge Code
+$PSProfileChallenge = "MIKE OSCAR ROMEO TANGO ECHO NOVEMBER"
+
+# Warning Preferance
+$WarningPreference = "Continue"
+
 # --------------------------------- Theme Config --------------------------------#
 
 # ---------------------------------- POSH Prompt --------------------------------#
+Function Use-CustomDirectory {
+    $Global:CurrentPrefixName = ""
+    $Global:CurrentPrefixColour = ""
+}
+
 Function Prompt {
     [cmdletbinding()]
-    param()   
+    param (
+    )   
+
     $Time = Get-Date -Format ("HH\:mm\:ss")
     Write-Host "[$($Time)] " -ForegroundColor $ProtectedObjects.ColorPromptDates -NoNewline
     Write-Host "[$($ProtectedObjects.Nickname)] " -ForegroundColor $ProtectedObjects.ColorPromptNickname -NoNewline;
-    Write-Host $(Get-CustomDirectory) -ForegroundColor $ProtectedObjects.ColorPromptCustomDirectory  -NoNewline        
+    
+    if ([string]::IsNullOrEmpty($Global:CurrentPrefixName)) {
+        Write-Host $(Get-CustomDirectory) -ForegroundColor $ProtectedObjects.ColorPromptCustomDirectory  -NoNewline
+    } else {
+        Write-Host "[$($Global:CurrentPrefixName)]" -ForegroundColor $Global:CurrentPrefixColour -NoNewline
+    }
+
     Write-Host " >_" -ForegroundColor $ProtectedObjects.ColorPromptArrow -NoNewline 
     return " "
 }
 
 ##################################################################################
 # ----------------------------------- Aliases  ----------------------------------#
+Set-Alias -Name "Reset" -Value Use-CustomDirectory
 
 ##################################################################################

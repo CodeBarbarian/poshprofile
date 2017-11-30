@@ -1,9 +1,3 @@
-# In case of proxy
-[System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
-
-# Set the API Endpoint
-[string] $ApiEndPoint = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0"
-
 <#
 .SYNOPSIS
     Helper function for drawing windows forms, and manipulating images
@@ -162,7 +156,7 @@ Function Get-MSCognitiveVision {
         $URI = "/analyze?visualFeatures=$($Type)"
         
         # Build the full API URI
-        $FullURI = "$($ApiEndPoint)$($URI)"
+        $FullURI = "$($Config.ServerProtocol)://$($Config.APIEndPoint)$($URI)"
 
         # Build the Header
         $Header = @{
@@ -181,7 +175,6 @@ Function Get-MSCognitiveVision {
     # Customized type output
     Switch($Type) {
         'description' {
-            
             Write-Host ($Response.description.tags)
             Write-Host ($Response.description.captions.text)
         }

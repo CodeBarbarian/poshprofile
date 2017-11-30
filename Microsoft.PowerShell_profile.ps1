@@ -37,3 +37,7 @@ Clear-Host
 # Main Header
 Get-MainHeader
 
+# Testing some error handling
+if ($Error.Count -gt 0) {
+    Write-Host ("Errors where detected upon launching this profile, please run Inspect-Self")
+}

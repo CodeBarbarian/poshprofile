@@ -10,7 +10,7 @@
     ========================================================================================================
     #    Author         Version         Date                       Description    
     ========================================================================================================      
-    # CodeBarbarian       0.0.1       22/10/2017                Initial Relase of powershell profile
+    # CodeBarbarian       0.0.1       22/10/2017                Initial release of powershell profile
     # CodeBarbarian       1.0.0       23/10/2017                Stable release of powershell profile
     #
     #
