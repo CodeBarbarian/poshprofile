@@ -37,12 +37,12 @@ $ProtectedObjects = New-Object PSObject -Property @{
     Username            = $ENV:USERNAME
 
     # PS Directories
-    PSProfileDirectory  = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)")
-    PSConfigDirectory   = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Config")
-    PSModuleDirectory   = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Modules")
-    PSDataDirectory     = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Data")
-    PSToolsDirectory    = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Tools")
-
+    PSProfileDirectory      = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)")
+    PSConfigDirectory       = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Config")
+    PSModuleDirectory       = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Modules")
+    PSDataDirectory         = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Data")
+    PSToolsDirectory        = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Tools") # not in use yet
+    PSProcedureDirectory    = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\StoredProcedures")
     # Some theme options
     ColorPromptDates            = "RED"
     ColorPromptNickname         = "WHITE"
@@ -69,18 +69,26 @@ $CustomDirectories = @{
     ("$(Join-Path $ENV:USERPROFILE Documents)\git")     = '[Git Repository]'
 
 }
+
 # Profile Challenge Code
 $PSProfileChallenge = "MIKE OSCAR ROMEO TANGO ECHO NOVEMBER"
 
 # Warning Preferance
 $WarningPreference = "Continue"
 
+# Error Action Preference
+# Continue          Ignore            Inquire           SilentlyContinue  Stop              Suspend
+$ErrorActionPreference = "Continue"
+
+# Verbose Preference
+$VerbosePreference = "Continue"
 # --------------------------------- Theme Config --------------------------------#
 
 # ---------------------------------- POSH Prompt --------------------------------#
 Function Use-CustomDirectory {
-    $Global:CurrentPrefixName = ""
+    $Global:CurrentPrefixName   = ""
     $Global:CurrentPrefixColour = ""
+    $Global:CurrentPrefixTag    = ""
 }
 
 Function Prompt {
@@ -92,6 +100,7 @@ Function Prompt {
     Write-Host "[$($Time)] " -ForegroundColor $ProtectedObjects.ColorPromptDates -NoNewline
     Write-Host "[$($ProtectedObjects.Nickname)] " -ForegroundColor $ProtectedObjects.ColorPromptNickname -NoNewline;
     
+    # Simple check
     if ([string]::IsNullOrEmpty($Global:CurrentPrefixName)) {
         Write-Host $(Get-CustomDirectory) -ForegroundColor $ProtectedObjects.ColorPromptCustomDirectory  -NoNewline
     } else {
@@ -104,6 +113,5 @@ Function Prompt {
 
 ##################################################################################
 # ----------------------------------- Aliases  ----------------------------------#
-Set-Alias -Name "Reset" -Value Use-CustomDirectory
-
+New-Alias -Name Reset -Value Use-CustomDirectory
 ##################################################################################

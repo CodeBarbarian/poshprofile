@@ -20,14 +20,18 @@
     #
 #>
 function Update-MacAddressVendor {
-    [cmdletbinding()]
+    [cmdletbinding(SupportsShouldProcess=$true)]
     param()
 
     # Path to the wireshark repository
     $APIUrl = 'https://code.wireshark.org/review/gitweb?p=wireshark.git;a=blob_plain;f=manuf;hb=HEAD'
 
-    $WebClient = New-Object System.Net.WebClient
-    $WebClient.DownloadFile($APIUrl, "$($ProtectedObjects.PSDataDirectory)\vendor_macaddresses.txt")
+    if ($PSCmdlet.ShouldProcess("Downloading vendor_macaddresses.txt")) {
+        Write-Verbose ("Started  downloading vendor_macaddresses.txt from wireshark repository at $(Get-Date)")
+        $WebClient = New-Object System.Net.WebClient
+        $WebClient.DownloadFile($APIUrl, "$($ProtectedObjects.PSDataDirectory)\vendor_macaddresses.txt")
+        Write-Verbose ("Ended at $(Get-Date)")
+    }
 }
 
 <#

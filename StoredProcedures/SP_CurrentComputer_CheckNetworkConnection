@@ -1,0 +1,11 @@
+{
+    "========================================================================";
+    "Running procedure on CurrentComputer, checking for networking connection";
+    "========================================================================";
+    
+    "ICMP Request against vg.no...";
+    ping vg.no;
+
+    
+    pause;
+}

@@ -28,7 +28,6 @@
 #>
 function Optimize-Session {
     [cmdletbinding()] 
-    [Alias("PS-Clean")]
     [OutputType([void])]
     param()
 
@@ -230,18 +229,52 @@ Function Get-PSProfileChallenge {
 
 Function New-Window {
     [cmdletbinding()]
-    [OutputType([void])]
     param (
-        [parameter(mandatory=$true)]
-        [scriptblock] $Include 
+        $Include 
     )
 
-    Invoke-Expression 'cmd /c start powershell.exe -Command $($Include)'
+    Invoke-Expression "cmd /c start powershell.exe -Command $($Include)"
 }
 
+Function Get-SessionHistory {
+    [cmdletbinding()]
+    param (
 
-# TODO - - Finish this one.
-Function Inspect-Self {
+    )
+
+    $Objects = Get-History | Select-Object CommandLine
+
+    return $Objects.CommandLine
+
+}
+
+Function Get-PSVariables {
+    [cmdletbinding()]
+    param (
+
+    )
+    
+    Get-Variable | Where-Object {(@(
+        "FormatEnumerationLimit",
+        "MaximumAliasCount",
+        "MaximumDriveCount",
+        "MaximumErrorCount",
+        "MaximumFunctionCount",
+        "MaximumVariableCount",
+        "PGHome",
+        "PGSE",
+        "PGUICulture",
+        "PGVersionTable",
+        "PROFILE",
+        "PSSessionOption",
+        "psISE",
+        "psUnsupportedConsoleApplications") -NotContains $_.Name) -and `
+        (([PSObject].Assembly.GetType('System.Management.Automation.SpecialVariables').GetFields('NonPublic,Static
+        ') | Where-Object FieldType -eq ([string]) | ForEach-Object GetValue $null)) -NotContains $_.Name}
+}
+
+## TODO : Get this done
+Function Trace-Self {
     [cmdletbinding()]
     [OutputType([void])]
     param (
@@ -256,12 +289,71 @@ Function Inspect-Self {
     Write-Host ("__WARNING: $($Global:Warning.Count)") -ForegroundColor YELLOW
     $Global:Warning
     Write-Host ("__DEBUG: $($Global:Debug.Count)") -ForegroundColor BLUE
-    $Global:Debug 
+    $Global:Debug
     Write-Host ("__VERBOSE: $($Global:Verbose.Count)") -ForegroundColor CYAN
+
+    "========================================================================"
+    Write-Host ("__VARIABLES: ") 
+    Get-PSVariables
+
+
+    "========================================================================"
+    $SessionHistory = Get-SessionHistory
+    Write-Host ("__SESSION_HISTORY:") $SessionHistory.Count
+    $SessionHistory
+    
     "========================================================================"
     "                           END OF REPORT"
     "========================================================================"
+}
 
+Function Show-Procedures {
+    [cmdletbinding()]
+    [OutputType([string])]
+    param (
 
+    )
 
+    $Objects = Get-ChildItem -Path $ProtectedObjects.PSProcedureDirectory -File -Recurse
+    return $Objects.Name
+}
+
+Function Run-Procedure {
+    [cmdletbinding()]
+    param (
+        [parameter()]
+        $Name
+    )
+
+    $Path = (Join-Path $ProtectedObjects.PSProcedureDirectory $Name)
+    $ScriptBlock = Get-Content -Path $Path
+    New-Window -Include $ScriptBlock
+
+}
+
+function Get-Modules {
+    [cmdletbinding()]
+    [OutputType([psobject])]
+    param (
+
+    )
+
+    if ([string]::isNullOrWhitespace($Global:CurrentPrefixTag)) {
+        Get-Module
+    } else {
+        $ReturnObject = @{}
+        $Objects = Get-ChildItem -Path (Join-Path $ProtectedObjects.PSModuleDirectory $Global:CurrentPrefixTag) -Directory
+        foreach($Object in $Objects) {
+            $TempName = $Object.Name
+
+            $ModuleObject = Get-Module $TempName | Select-Object ExportedCommands
+            
+            $ReturnObject = New-Object -TypeName PSObject -Property @{
+                Name = $TempName
+                ExportedCommands = $ModuleObject.ExportedCommands.Values.Name 
+                CommandType = $ModuleObject.ExportedCommands.Values.CommandType 
+            }
+        }
+        return $ReturnObject
+    }
 }

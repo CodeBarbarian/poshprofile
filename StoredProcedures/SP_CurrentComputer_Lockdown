@@ -1,0 +1,13 @@
+{
+    "========================================================================";
+    "           Running procedure on CurrentComputer, Lockdown";
+    "========================================================================";
+
+    "Killing stuff";
+    taskkill /f /im chrome.exe;
+    taskkill /f /im outlook.exe;
+    taskkill /f /im lync.exe;
+    "";
+    "Locking computer";
+    shutdown.exe -l
+}

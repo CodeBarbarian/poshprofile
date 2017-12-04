@@ -23,8 +23,10 @@
                                              ╚████╔╝ ███████╗██║  ██║     ██║██╗╚██████╔╝
                                               ╚═══╝  ╚══════╝╚═╝  ╚═╝     ╚═╝╚═╝ ╚═════╝ 
                                                                                                                     
-#>
 
+Version 1.0 Challenge Code: .:Mike Oscar Romeo Tango Echo November:.
+#>
+$VerbosePreference = "Continue"
 # Powershell Module Directory
 $PSModulesDirectory = "$(Join-Path $ENV:USERPROFILE Documents)\WindowsPowershell\Modules"
 
@@ -39,5 +41,5 @@ Get-MainHeader
 
 # Testing some error handling
 if ($Error.Count -gt 0) {
-    Write-Host ("Errors where detected upon launching this profile, please run Inspect-Self")
+    Write-Host ("Errors were detected upon launching profile, please run Inspect-Self")
 }
