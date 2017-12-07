@@ -6,22 +6,7 @@
         - Prateek Singh
         - https://geekeefy.wordpress.com/2016/10/19/powershell-customize-directory-path-in-ps-prompt/
 .NOTES
-        This function is modified by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian       0.0.1         22/05/2017         First initial modifcation
-    # 
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
+    This function is modified by @codebarbarian - https://github.com/codebarbarian
 #>
 
 [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials

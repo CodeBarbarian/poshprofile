@@ -5,20 +5,6 @@
     See synopsis.
 .NOTES
     This script is written by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian       0.0.1       23/10/2017                Initial Release of configuration file
-    # 
-    #
-    #
-    #
-    #
-    #
-    #
-    #
 #>
 
 [cmdletbinding()]
@@ -29,8 +15,8 @@ param()
 $ProtectedObjects = New-Object PSObject -Property @{
     Nickname    = 'CodeBarbarian'   # Custom nickname
     Author      = 'Morten Haugstad' # Author of the profile
-    Version     = '0.0.1'           # Version of the profile
-    DefaultCity = 'Mo I Rana'       # Used by the weather module and other geo modules
+    Version     = '1.0'             # Version of the profile
+    DefaultCity = 'Mo I Rana, Norway'       # Used by the weather module and other geo modules
     
     # Important ojects
     UserProfile         = $ENV:USERPROFILE

@@ -5,19 +5,6 @@
     Updates the Vendor list with respective mac addresses from wireshark's gitweb.
 .NOTES
     This function is written by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                       CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian       0.0.1         05/09/2017                First initial release of function
-    #
-    #
-    #
-    #
-    #
-    #
-    #
 #>
 function Update-MacAddressVendor {
     [cmdletbinding(SupportsShouldProcess=$true)]
@@ -42,19 +29,6 @@ function Update-MacAddressVendor {
     Uses the vendor_macaddresses.txt located in the powershell/data directory, to lookup vendor of a given mac address
 .NOTES
     This function is written by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian     0.0.1         05/09/2017                First Initial release of function
-    #
-    #
-    #
-    #
-    #
-    #
-    #
 #>
 function Get-MacAddressVendor {
     [cmdletbinding()]

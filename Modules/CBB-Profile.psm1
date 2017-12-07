@@ -4,19 +4,15 @@
 .DESCRIPTION
     See synopsis.
 .NOTES
-    This script is written by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian       0.0.1       22/10/2017                Initial release of powershell profile
-    # CodeBarbarian       1.0.0       23/10/2017                Stable release of powershell profile
-    #
-    #
-    #
-    #
-    #
-    #
-    #
+#>
+
+
+
+# Automatically Install PSImaging
+<#
+
+# Need to test this, if it does not work, find another solution. 
+& ([scriptblock]::Create((iwr -uri https://gist.githubusercontent.com/KirkMunro/131308abfb2d857bea40/raw/Install-ModuleFromGitHub.ps1).Content)) `
+  -GitHubUserName Positronic-IO -ModuleName PSImaging -Branch 'master' -Scope CurrentUser
+
 #>

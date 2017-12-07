@@ -4,27 +4,12 @@
 .DESCRIPTION
     Removes used session variables in the current powershell session, except
     from the CustomDirectories and ProtectedObjects
+
+    This function is currently not in use, since the profile is changed so much, but the function has not.
 .EXAMPLE
     Optimize-Session
 .NOTES
         This function is modified by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian       0.0.1         30/05/2017         First initial modifcation
-    # 
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-
-    Function needs to be re-written to better fit the current environment
 #>
 function Optimize-Session {
     [cmdletbinding()] 
@@ -47,21 +32,6 @@ function Optimize-Session {
         - https://geekeefy.wordpress.com/2016/10/19/powershell-customize-directory-path-in-ps-prompt/
 .NOTES
         This function is modified by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian       0.0.1         30/05/2017         First initial modifcation
-    # 
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
 #>
 function Get-CustomDirectory {
     [CmdletBinding()]
@@ -91,19 +61,6 @@ function Get-CustomDirectory {
     See synopsis.
 .NOTES
     This function is written by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian     0.0.1         22/10/2017            First initial relase of function
-    #
-    #
-    #
-    #
-    #
-    #
-    #
 #>
 Function Get-Bootstrapper {
     [cmdletbinding()]
@@ -124,21 +81,6 @@ Function Get-Bootstrapper {
     See synopsis.
 .NOTES
     This function is written by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-    #
-
-    Current status: Outlined, early development
 #>
 Function Get-PowerShellName {
     [cmdletbinding()]
@@ -177,7 +119,7 @@ Function Get-PowerShellName {
     Simple implementation of touch command from *nix
 .DESCRIPTION
     See synopsis.
-    This script could be accomplished by doing "set-alias Touch New-Item"
+    This script could be accomplished by doing "Net-Alias -Name Touch -Value New-Item"
 .EXAMPLE
     touch c:\temp\test.txt
 .PARAMETER Path
@@ -185,19 +127,6 @@ Function Get-PowerShellName {
 .LINK
 .NOTES
     This function is written by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian      1.0            31.10.2017              First Initial relase of touch
-    #
-    #
-    #
-    #
-    #
-    #
-    #
 #>
 Function Touch {
     [cmdletbinding(SupportsShouldProcess=$true)]
@@ -227,7 +156,7 @@ Function Get-PSProfileChallenge {
     }
 }
 
-Function New-Window {
+Function New-PSWindow {
     [cmdletbinding()]
     param (
         $Include 
@@ -318,18 +247,33 @@ Function Show-Procedures {
     return $Objects.Name
 }
 
-Function Run-Procedure {
-    [cmdletbinding()]
-    param (
-        [parameter()]
-        $Name
-    )
+function Run-Procedure {
+    [CmdletBinding()]
+    Param()
+    DynamicParam {
+        $attributes = new-object System.Management.Automation.ParameterAttribute
+        $attributes.Mandatory = $false
 
-    $Path = (Join-Path $ProtectedObjects.PSProcedureDirectory $Name)
-    $ScriptBlock = Get-Content -Path $Path
-    New-Window -Include $ScriptBlock
+        $attributeCollection = new-object -Type System.Collections.ObjectModel.Collection[System.Attribute]
+        $attributeCollection.Add($attributes)
 
+        $arrSet = Get-ChildItem -Path $ProtectedObjects.PSProcedureDirectory -File | Select-Object -ExpandProperty Name
+        $ValidateSetAttribute = New-Object System.Management.Automation.ValidateSetAttribute($arrSet)
+        $AttributeCollection.Add($ValidateSetAttribute)
+
+        $dynParam1 = new-object -Type System.Management.Automation.RuntimeDefinedParameter("Name", [string], $attributeCollection)
+            
+        $paramDictionary = new-object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
+        $paramDictionary.Add("Name", $dynParam1)
+        
+        return $paramDictionary
+    } End {
+        $Path = (Join-Path $ProtectedObjects.PSProcedureDirectory $PSBoundParameters['Name'])
+        $ScriptBlock = Get-Content -Path $Path
+        New-PSWindow -Include $ScriptBlock
+    }
 }
+
 
 function Get-Modules {
     [cmdletbinding()]
@@ -341,14 +285,14 @@ function Get-Modules {
     if ([string]::isNullOrWhitespace($Global:CurrentPrefixTag)) {
         Get-Module
     } else {
-        $ReturnObject = @{}
+        $ReturnObject = @()
         $Objects = Get-ChildItem -Path (Join-Path $ProtectedObjects.PSModuleDirectory $Global:CurrentPrefixTag) -Directory
         foreach($Object in $Objects) {
             $TempName = $Object.Name
 
             $ModuleObject = Get-Module $TempName | Select-Object ExportedCommands
             
-            $ReturnObject = New-Object -TypeName PSObject -Property @{
+            $ReturnObject += New-Object -TypeName PSObject -Property @{
                 Name = $TempName
                 ExportedCommands = $ModuleObject.ExportedCommands.Values.Name 
                 CommandType = $ModuleObject.ExportedCommands.Values.CommandType 

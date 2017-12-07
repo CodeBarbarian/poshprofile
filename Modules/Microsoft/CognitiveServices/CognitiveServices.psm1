@@ -7,18 +7,6 @@
     Originally written by Prateek Singh - https://github.com/PrateekKumarSingh/ProjectOxford/tree/master/ProjectOxford
 
     This function is modified by @codebarbarian - https://github.com/codebarbarian
-    ========================================================================================================
-    #                                               CHANGELOG
-    ========================================================================================================
-    #    Author         Version         Date                       Description    
-    ========================================================================================================      
-    # CodeBarbarian      1.0          01/11/2017                First initial modification
-    #
-    #
-    #
-    #
-    #
-    #
 #>
 Function DrawAgeAndGenderOnImage {
     [cmdletbinding()]
@@ -108,6 +96,14 @@ Function DrawAgeAndGenderOnImage {
     [GC]::Collect()
 }
 
+<#
+.SYNOPSIS
+    
+.DESCRIPTION
+    
+.NOTES
+    This function is written by @codebarbarian - https://github.com/codebarbarian
+#>
 Function Get-DefaultConfigFile {
     [cmdletbinding()]
     [OutputType([string])]
@@ -116,6 +112,14 @@ Function Get-DefaultConfigFile {
     return ("$(Join-Path $ENV:USERPROFILE Documents)\WindowsPowershell\Config\MSCognitiveServices.xml")
 }
 
+<#
+.SYNOPSIS
+    
+.DESCRIPTION
+    
+.NOTES
+    This function is written by @codebarbarian - https://github.com/codebarbarian
+#>
 Function Get-ConfigFile {
     [cmdletbinding()]
     [OutputType([xml])]
@@ -133,6 +137,14 @@ Function Get-ConfigFile {
     return $ConfigObject
 }
 
+<#
+.SYNOPSIS
+    
+.DESCRIPTION
+    
+.NOTES
+    This function is written by @codebarbarian - https://github.com/codebarbarian
+#>
 Function Get-MSCognitiveVision {
     [cmdletbinding(SupportsShouldProcess)]
     param (
