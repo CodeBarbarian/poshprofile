@@ -29,6 +29,7 @@ $ProtectedObjects = New-Object PSObject -Property @{
     PSDataDirectory         = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Data")
     PSToolsDirectory        = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\Tools") # not in use yet
     PSProcedureDirectory    = ("$(Join-Path $ENV:USERPROFILE Documents\WindowsPowerShell)\StoredProcedures")
+
     # Some theme options
     ColorPromptDates            = "RED"
     ColorPromptNickname         = "WHITE"
