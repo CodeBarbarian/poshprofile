@@ -2,7 +2,7 @@
 ![Version](https://img.shields.io/badge/Version-1.0-brightgreen.svg)
 ![Release](https://img.shields.io/badge/Release-Stable-brightblue.svg)
 ![Dependencies](https://img.shields.io/badge/Dependencies-up%20to%20date-brightgreen.svg)
-![DevelopmentStatus](https://img.shields.io/badge/Development%20Status-early%20alpha-brightred.svg)
+![DevelopmentStatus](https://img.shields.io/badge/Development%20Status-early%20beta-brightred.svg)
 
 ## Informational
 My personal powershell profile. Will include tools and automation that I use daily. 
@@ -13,13 +13,12 @@ Download this repository and place it in your WindowsPowershell Directory
 
 Change the settings you want, and run Powershell.
 
-All modules are designed so they can be run separately as well. 
+Modules are designed so they can be run separately as well (Most of them). 
 
 ## Todo
 Will keep adding modules, packages and improve on the overall code. 
-
-HELP
-  -> Create local helpfiles for all the modules and functions
+Structure overhaul time! - Doing some minor/major restructure of my powershell profile, more changes to come
+Will only use approved verbs as well. - Lots of changes
 
 NetworkingUtilities
   -> Port Scanner
@@ -28,20 +27,23 @@ NetworkingUtilities
   -> Connection Assist
   -> Current Connections
   -> Firewall Manager
+  -> Network Utilites geared towards Cisco.
+APIs
+  -> More API Support
+Data Management
+  -> More Data Tools
+Automation
+  -> More Automation
+  -> Twitter Bot
+  -> -> On That note, more bots.
+Security
+  -> URL scanners
+  -> Support for VirusTotal.com
+UI
+  -> Windows Forms
+Stability Core Functions
+  -> Pester Tests
+Compliance
+  -> Compliance Scripts for PCI-CP and PCI-DSS
 
-## Modules ## 
-Current Module Directiores:
-### CBB-Core
-All core functions and core modules for running this profile
-### CBB-Gaming
-Typical game server setups, and automation for those
-### CBB-Help
-Will be the local storage for all the help files
-### GeoUtilities
-Utilities that use GeoLocation, currently only contains the Weather Utility
-### Microsoft
-Powershell Scripts aimed towards Microsoft's solution and software
-### NetworkingUtilities
-Different type of networking utilities
-### VMWare
-Different Tools for administrating VMWare
+

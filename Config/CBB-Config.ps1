@@ -1,12 +1,3 @@
-<#
-.SYNOPSIS
-    Configuration for my Powershell Profile
-.DESCRIPTION
-    See synopsis.
-.NOTES
-    This script is written by @codebarbarian - https://github.com/codebarbarian
-#>
-
 [cmdletbinding()]
 param()
 
@@ -37,6 +28,9 @@ $ProtectedObjects = New-Object PSObject -Property @{
     ColorPromptArrow            = "Yellow"    
 }
 
+# Need a function for adding prefix namespaces to this (Something like Get-Namespace / Set-Namespace)
+$Global:CustomNamespaces = @()
+
 $CustomDirectories = @{
     # Typicals 
     $env:Temp       = '[Temp]'
@@ -64,7 +58,7 @@ $PSProfileChallenge = "MIKE OSCAR ROMEO TANGO ECHO NOVEMBER"
 $WarningPreference = "Continue"
 
 # Error Action Preference
-# Continue          Ignore            Inquire           SilentlyContinue  Stop              Suspend
+# Continue, Ignore, Inquire, SilentlyContinue, Stop, Suspend
 $ErrorActionPreference = "Continue"
 
 # Verbose Preference

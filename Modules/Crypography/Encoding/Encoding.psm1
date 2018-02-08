@@ -25,8 +25,11 @@ Function Base64Copy {
     [cmdletbinding()]
     param (
         [paramter(Mandatory=$true)]
-        [string]$From,
+        [string] $From,
         [paramter(Mandatory=$true)]
-        [string]$To,
+        [string] $To
     )
+
+    $InputFrom = Base64Encode -Path $From
+    $OutputTo  = Base64Decode -InputData $InputFrom -OutputFile $To
 }

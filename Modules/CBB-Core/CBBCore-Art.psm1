@@ -76,11 +76,46 @@ Function Get-AsciiSantaClaus {
     "
 }
 
+Function Get-ASciiEasterBunny {
+    [cmdletbinding()]
+    param ()
+    return "
+      .-.            .-.
+     /   \          /   \
+     |   _ \        / _   |
+     ;  | \ \      / / |  ;
+     \  \ \ \_.._/ / /  /
+      '. '.;'    ';,' .'
+        './ _    _ \.'
+         .'  a __ a  '.
+    '--./ _,   \/   ,_ \.--'
+    ----|   \   /\   /   |----
+    .--'\   '-'  '-'    /'--.
+        _>.__  -- _.-  `;
+      .' _     __/     _/
+    /    '.,:'.-\    /:,
+   |      \.'   `\\.\\
+    '-,.__/  _   .-.  ;|_
+    /` `|| _/ `\/_  \_|| `\
+    |    ||/ \-./` \ / ||   |
+    \   ||__/__|___|__||  /
+     \_ |_Happy Easter_| /
+    .|  \ =  _= _ = _= /`\
+    /     `-;----=--;--.   \
+    \    _.-'        '.    /
+    `--`              `--`
+    "
+}
+
 Function Get-MainHeader {
     [cmdletbinding()] param()
     
     "============================================================================================================"
     Switch((Get-Date).Month) {
+        # Display a ascii bunny if the month is April (month 4)
+        4 {
+            Get-ASciiEasterBunny
+        }
         # Display a ascii santa if the month is december (month 12)
         12 {
             Get-AsciiSantaClaus
@@ -90,6 +125,9 @@ Function Get-MainHeader {
             Get-AsciiTextCubeHeader
         }
     }
+    # Get the nickname for my profile
     Get-CodeBarbarianHeader 
     "============================================================================================================"
 }
+
+

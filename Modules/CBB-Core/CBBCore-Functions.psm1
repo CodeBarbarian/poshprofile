@@ -301,3 +301,42 @@ function Get-Modules {
         return $ReturnObject
     }
 }
+
+<#
+.SYNOPSIS
+
+.DESCRIPTION
+Long description
+
+.PARAMETER Condition
+Parameter description
+
+.PARAMETER IfTrue
+Parameter description
+
+.PARAMETER IfFalse
+Parameter description
+
+.EXAMPLE
+An example
+
+.NOTES
+General notes
+#>
+Function ?? {
+    [Cmdletbinding()]
+    param (
+        [parameter()]
+        [Bool]$Condition,
+        [parameter()]
+        $IfTrue,
+        [parameter()]
+        $IfFalse
+    )
+
+    if ($Condition) {
+        $IfTrue
+    } else {
+        $IfFalse
+    }
+}
