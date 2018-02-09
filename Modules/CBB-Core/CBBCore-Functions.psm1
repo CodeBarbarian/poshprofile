@@ -340,3 +340,10 @@ Function ?? {
         $IfFalse
     }
 }
+
+Function Get-ModuleDirectory {
+    [cmdletbinding()]
+    param ()
+
+    Set-Location -Path $ProtectedObjects.PSModuleDirectory
+}

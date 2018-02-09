@@ -75,7 +75,7 @@ Function Get-SpaceX {
             # Switch to handle output type Json or html
             switch ($OutputType) {
                 'json'  {$ReturnData = $Response}
-                'html'  {$ReturnData = $Response | ConvertTo-Xml}
+                'html'  {$ReturnData = $Response | ConvertTo-Html}
             }
         }
 
