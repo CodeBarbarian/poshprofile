@@ -11,7 +11,7 @@
 
 [System.Net.WebRequest]::DefaultWebProxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
 
-Function Get-Weather {
+Function Show-Weather {
     [Cmdletbinding()]
     Param (
             [Parameter(

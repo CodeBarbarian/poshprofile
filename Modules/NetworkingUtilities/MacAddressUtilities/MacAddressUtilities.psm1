@@ -76,3 +76,10 @@ function Get-MacAddressVendor {
         }
     }
 }
+
+Function Get-MacAddresses {
+    [cmdletbinding()]
+    param (
+        
+    )
+}

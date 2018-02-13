@@ -4,7 +4,7 @@ Function Use-NetworkingkUtilities {
 
     )
 
-    $Global:CurrentPrefixName   = "Network-Util"
+    $Global:CurrentPrefixName   = "Network-Utils"
     $Global:CurrentPrefixTag    = "NetworkingUtilities"
     $Global:CurrentPrefixColour = "CYAN"    
 }

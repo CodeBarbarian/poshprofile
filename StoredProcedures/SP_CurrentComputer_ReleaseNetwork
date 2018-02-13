@@ -1,0 +1,16 @@
+{
+    "========================================================================";
+    "           Releaseing IP information and retrieving new";
+    "========================================================================";
+
+    "Releasing...";
+    ipconfig /release;
+
+    "Retrieving...";
+    ipconfig /renew;
+
+    "Done...";
+    pause;
+
+
+}

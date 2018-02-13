@@ -1,0 +1,14 @@
+{
+    "========================================================================";
+    "                       EMERGENCY GIT COMMIT";
+    "========================================================================";
+    
+    "Setting directory....";
+    Set-Location -Path "C:\users\$($env:username)\desktop\git\poshprofile\poshprofile";
+    "$(pwd)";
+    
+    
+    pause;
+
+
+}

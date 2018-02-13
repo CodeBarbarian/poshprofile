@@ -1,4 +1,4 @@
-Function Whois {
+Function Invoke-Whois {
     [cmdletbinding(SupportsShouldProcess)]
     param (
         [string] $Query
