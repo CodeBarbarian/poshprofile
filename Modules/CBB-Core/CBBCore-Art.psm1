@@ -107,6 +107,45 @@ Function Get-ASciiEasterBunny {
     "
 }
 
+Function Get-Banner {
+    [cmdletbinding()]
+    [OutputType([void])]
+    param (
+        [parameter(
+            Mandatory = $True,
+            ValueFromPipeline = $True,
+            Position = 0,
+            HelpMessage = "String to create banner for"
+        )]
+        [ValidateNotNullOrEmpty()]
+        [string] $Text,
+
+        [parameter(
+            Mandatory = $False,
+            ValueFromPipeLine = $False,
+            Position = 1,
+            HelpMessage = "Character to use for the banner creation"
+        )]
+        [ValidateNotNullOrEmpty()]
+        [char] $Delimiter = "#"
+    )
+
+    # Get the total Text Length
+    $TextLength = $Text.length
+    $TopnBottom = ""
+
+    # Create the Top and Bottom Banner
+    for($I = 0; $I -lt $TextLength; $I++) {
+        $TopnBottom += $Delimiter
+    }
+
+    # Display banner
+    $TopnBottom
+    $Text
+    $TopnBottom
+
+}
+
 Function Get-MainHeader {
     [cmdletbinding()] param()
     
