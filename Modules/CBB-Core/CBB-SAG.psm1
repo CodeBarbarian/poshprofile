@@ -17,7 +17,7 @@ Function Get-CBBEvolutionOfText {
     # To keep track if it is completed or not
     $Completed = $False
 
-    # Characters in the search space - Need to get space character working
+    # Characters in the search space - Need to get space character working!!!
     $SearchSpace = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890 "
 
 
