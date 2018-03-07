@@ -61,3 +61,4 @@ Function Get-CBBEvolutionOfText {
 
    Write-Host ("It took $($Evolution) generations to generate the evolution string ( $($EvolutionString) )")
 }
+
