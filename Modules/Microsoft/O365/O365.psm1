@@ -1,5 +1,5 @@
 
-
+# Work in progress
 function Update-O365IPAddresses {
     [cmdletbinding(SupportsShouldProcess=$true)]
     param (
