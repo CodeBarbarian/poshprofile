@@ -1,30 +1,5 @@
 <#
 .SYNOPSIS
-    Removes used session variables, to optimize the current powershell session.
-.DESCRIPTION
-    Removes used session variables in the current powershell session, except
-    from the CustomDirectories and ProtectedObjects
-
-    This function is currently not in use, since the profile is changed so much, but the function has not.
-.EXAMPLE
-    Optimize-Session
-.NOTES
-        This function is modified by @codebarbarian - https://github.com/codebarbarian
-#>
-function Optimize-Session {
-    [cmdletbinding()] 
-    [OutputType([void])]
-    param()
-
-    Get-Variable | Where-Object {$_.Name -notmatch '(CustomDirectories|ProtectedObjects)'} | ForEach-Object {
-        Remove-Variable -Name "$($_.Name)" -Force -Scope "global" -ErrorAction SilentlyContinue -WarningAction SilentlyContinue
-    }
-
-    Write-Warning -Message "Profile may behave unexpectedly, if problems occur, restart powershell"
-}
-
-<#
-.SYNOPSIS
     Get Custom Directory Path - Shows predefined paths instead of a long pathname
 .DESCRIPTION
     This function is modifed from one of my favorite Powershell developers
@@ -72,46 +47,6 @@ Function Get-Bootstrapper {
     
     # Retrieved from the core_art.psm1
     Get-MainHeader
-}
-
-<#
-.SYNOPSIS
-    Powershell implementation of uname (Unix Name)
-.DESCRIPTION
-    See synopsis.
-.NOTES
-    This function is written by @codebarbarian - https://github.com/codebarbarian
-#>
-Function Get-PowerShellName {
-    [cmdletbinding()]
-    [Alias("pname")]
-    [OutputType([string])]
-    param (
-        # All
-        [switch] $a,
-        [switch] $all,
-        # Kernel Name
-        [switch] $s,
-        [switch] $kernalname,
-        # Nodename
-        [switch] $n,
-        [switch] $nodename,
-        # Kernel Release
-        [switch] $r,
-        [switch] $kernelrelease,
-        # Kernel Version
-        [switch] $v,
-        [switch] $kernelversion,
-        # Machine
-        [switch] $m,
-        [switch] $machine,
-        # Processor
-        [switch] $p,
-        [switch] $processor,
-        # Operating System
-        [switch] $o,
-        [switch] $operatingsystem
-    )
 }
 
 <#
@@ -247,7 +182,7 @@ Function Show-Procedures {
     return $Objects.Name
 }
 
-function Run-Procedure {
+function Start-Procedure {
     [CmdletBinding()]
     Param()
     DynamicParam {
@@ -277,10 +212,9 @@ function Run-Procedure {
 
 function Get-Modules {
     [cmdletbinding()]
+    [alias("Get-Module")]
     [OutputType([psobject])]
-    param (
-
-    )
+    param ( )
 
     if ([string]::isNullOrWhitespace($Global:CurrentPrefixTag)) {
         Get-Module
@@ -299,45 +233,6 @@ function Get-Modules {
             }
         }
         return $ReturnObject
-    }
-}
-
-<#
-.SYNOPSIS
-
-.DESCRIPTION
-Long description
-
-.PARAMETER Condition
-Parameter description
-
-.PARAMETER IfTrue
-Parameter description
-
-.PARAMETER IfFalse
-Parameter description
-
-.EXAMPLE
-An example
-
-.NOTES
-General notes
-#>
-Function ?? {
-    [Cmdletbinding()]
-    param (
-        [parameter()]
-        [Bool]$Condition,
-        [parameter()]
-        $IfTrue,
-        [parameter()]
-        $IfFalse
-    )
-
-    if ($Condition) {
-        $IfTrue
-    } else {
-        $IfFalse
     }
 }
 
