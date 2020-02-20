@@ -46,6 +46,10 @@ function Get-MacAddressVendor {
         Update-MacAddressVendor
     }
 
+    if ([string]::IsNullOrEmpty($MacAddress)) {
+        Write-Host("[*] Input can not be empty or null") -ForegroundColor RED
+    }
+
     # Remove everything we really do not need from the mac address
     $MacAddress = $MacAddress -replace "[-,.:]", ""
     
