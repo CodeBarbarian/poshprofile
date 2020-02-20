@@ -27,7 +27,7 @@ $PSModulesDirectory = "$(Join-Path $ENV:USERPROFILE Documents)\WindowsPowershell
 Import-Module ("$($PSModulesDirectory)\CBB-Profile.psd1")
 
 # Clear The Screen
-Clear-Host
+#Clear-Host
 
 # Main Header
-Get-MainHeader
+#Get-MainHeader
