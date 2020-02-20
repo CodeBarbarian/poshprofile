@@ -1,4 +1,0 @@
-
-Github is now TLS 1.2 only! Powershell defaults to v1.0, use this to prevent that
-
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12

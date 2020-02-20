@@ -1,9 +1,0 @@
-<Config>
-    <VSphere>
-        <ServerProtocol>https</ServerProtocol>
-        <ServerIPAddress>0.0.0.0</ServerIPAddress>
-        <BaseAPIUri>rest</BaseAPIUri>
-        <Username></Username>
-        <Password></Password>
-    </VSphere>
-</Config>

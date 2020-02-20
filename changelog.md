@@ -7,4 +7,5 @@
 20/02/2019
 ----------
     - Code Cleanup 
+        - More cleanup, deleted a lot of unused code
     - Added Discord Webhook made by EvotecIT/PSDiscord
